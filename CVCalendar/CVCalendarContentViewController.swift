@@ -90,6 +90,23 @@ extension CVCalendarContentViewController {
             }
         }
     }
+
+    public func refreshAllMonths() {
+        for view in scrollView.subviews {
+            guard let monthView = view as? MonthView else { return }
+            for weekV in monthView.weekViews {
+                for dayView in weekV.dayViews {
+                    removeCircleLabel(dayView)
+                    dayView.setupDotMarker()
+                    dayView.preliminarySetup()
+                    dayView.supplementarySetup()
+                    dayView.topMarkerSetup()
+                    dayView.interactionSetup()
+                    dayView.labelSetup()
+                }
+            }
+        }
+    }
 }
 
 

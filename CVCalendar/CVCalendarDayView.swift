@@ -153,7 +153,7 @@ public final class CVCalendarDayView: UIView {
 extension CVCalendarDayView {
     public func labelSetup() {
         let appearance = calendarView.appearance
-        
+        removeAllSubviews()
         dayLabel = UILabel()
         let numberFormatter = NumberFormatter()
         if let locale = calendarView.delegate?.calendar?()?.locale {
@@ -203,7 +203,7 @@ extension CVCalendarDayView {
             ? .present
             : .not
         
-        dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(by: weekDay, status: status, present: present) ?? color
+        dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(for: self) ?? color
         dayLabel?.font = appearance?.delegate?.dayLabelFont?(by: weekDay, status: status, present: present) ?? font
         
         addSubview(dayLabel)
@@ -498,7 +498,7 @@ extension CVCalendarDayView {
             }
             
             if isCurrentDay {
-                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(by: weekDay, status: .selected, present: present)
+                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(for: self)
                     ?? appearance?.dayLabelPresentWeekdaySelectedTextColor!
                 dayLabel?.font = appearance?.delegate?.dayLabelFont?(by: weekDay, status: .selected, present: present)
                     ?? appearance?.dayLabelPresentWeekdaySelectedFont
@@ -506,7 +506,7 @@ extension CVCalendarDayView {
                     ?? appearance?.dayLabelPresentWeekdaySelectedBackgroundColor
                 backgroundAlpha = appearance?.dayLabelPresentWeekdaySelectedBackgroundAlpha
             } else {
-                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(by: weekDay, status: .selected, present: present)
+                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(for: self)
                     ?? appearance?.dayLabelWeekdaySelectedTextColor
                 dayLabel?.font = appearance?.delegate?.dayLabelFont?(by: weekDay, status: .selected, present: present)
                     ?? appearance?.dayLabelWeekdaySelectedFont
@@ -518,7 +518,7 @@ extension CVCalendarDayView {
         case .range:
             shape = .rect
             if isCurrentDay {
-                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(by: weekDay, status: .highlighted, present: present)
+                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(for: self)
                     ?? appearance?.dayLabelPresentWeekdayHighlightedTextColor!
                 dayLabel?.font = appearance?.delegate?.dayLabelFont?(by: weekDay, status: .highlighted, present: present)
                     ?? appearance?.dayLabelPresentWeekdayHighlightedFont
@@ -526,7 +526,7 @@ extension CVCalendarDayView {
                     ?? appearance?.dayLabelPresentWeekdayHighlightedBackgroundColor
                 backgroundAlpha = appearance?.dayLabelPresentWeekdayHighlightedBackgroundAlpha
             } else {
-                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(by: weekDay, status: .highlighted, present: present)
+                dayLabel?.textColor = appearance?.delegate?.dayLabelColor?(for: self)
                     ?? appearance?.dayLabelWeekdayHighlightedTextColor
                 dayLabel?.font = appearance?.delegate?.dayLabelFont?(by: weekDay, status: .highlighted, present: present)
                     ?? appearance?.dayLabelWeekdayHighlightedFont
@@ -583,7 +583,7 @@ extension CVCalendarDayView {
             }()
             let present: CVPresent = isCurrentDay ? .present : .not
             
-            dayLabel?.textColor = appearance.delegate?.dayLabelColor?(by: weekDay, status: status, present: present) ?? color
+            dayLabel?.textColor = appearance.delegate?.dayLabelColor?(for: self) ?? color
             dayLabel?.font = appearance.delegate?.dayLabelFont?(by: weekDay, status: status, present: present) ?? font
             
             moveDotMarkerBack(true, coloring: false)
